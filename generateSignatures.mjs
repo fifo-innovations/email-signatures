@@ -1,6 +1,8 @@
 import fs from 'node:fs';
 import * as path from 'node:path';
 
+const __dirname = path.dirname(process.argv[1]).replace(/%20/g, ' ');;
+
 // Get the current directory name
 const dirName = __dirname.split(path.sep);
 console.log(`Current directory: ${dirName}`);
@@ -37,12 +39,22 @@ employees.forEach((entry, index) => {
   
   // Replace placeholders in the template with the employee data
   const newContent = replacePlaceholders(templateContent, name, title);
+  console.log('Replaced placeholders with employee data');
+  
   
   // Create name for the new email signature file
   const nameSlug = name.toLowerCase().split(' ').join('-');
-  const newFilePath = path.join(__dirname, `/emails/out/${nameSlug}-email-signature.tsx`);
 
-  // Write the new email signature file to the out directory
+  // check the for the __dirname/emails/signatures directory - if it doesn't exist, create it
+  const outDirPath = path.join(__dirname, '/emails/signatures');
+  if (!fs.existsSync(outDirPath)) {
+    fs.mkdirSync(outDirPath);
+    console.log('Created signatures directory');
+  }
+
+  const newFilePath = path.join(__dirname, `/emails/signatures/${nameSlug}-email-signature.tsx`);
+
+  // Write the new email signature file to the signatures directory
   fs.writeFileSync(newFilePath, newContent, 'utf8');
   console.log(`${name}'s email signature saved at: ${newFilePath}`);
 });
