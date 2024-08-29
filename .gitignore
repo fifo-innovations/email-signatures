@@ -1,3 +1,6 @@
 node_modules
 .react-email
 employees.json
+
+emails/signatures
+out/signatures
