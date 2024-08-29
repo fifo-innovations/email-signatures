@@ -67,6 +67,7 @@ export function FifoEmailSignature(props: SignatureProps) {
 			<Row style={{ padding: 6 }}>
 				{icons.map((icon, i) => (
 					<Icon
+						key={icon.id}
 						id={icon.id}
 						src={icon.src}
 						alt={icon.alt}

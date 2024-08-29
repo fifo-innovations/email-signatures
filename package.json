@@ -5,8 +5,7 @@
 	"scripts": {
 		"build": "email build",
 		"dev": "email dev",
-		"export": "email export",
-		"generate": "node generateSignatures.js"
+		"export": "node generateSignatures.js && email export --pretty true"
 	},
 	"dependencies": {
 		"@react-email/components": "0.0.23",

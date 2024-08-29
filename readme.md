@@ -1,27 +1,22 @@
-# React Email Starter
+# FIFO Email signature generator
 
-A live preview right in your browser so you don't need to keep sending real emails during development.
+## How to use
+- The `emails/fifo-email-signature.tsx` is the template - modify it as desired
+- Add an `employees.json` file to the project root that contains the details of all employees you wish to generate signature for.
+- run `pn export` a signature will be generated for each employee and saved in the `./out` directory
 
-## Getting Started
-
-First, install the dependencies:
-
-```sh
-npm install
-# or
-yarn
-```
-
-Then, run the development server:
-
-```sh
-npm run dev
-# or
-yarn dev
-```
-
-Open [localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## License
-
-MIT License
+example `employees.json`
+  ```
+  {
+    "data": [
+      {
+        "name": "John Doe",
+        "title": "ceo"
+      },
+      {
+        "name": "Jane Doe",
+        "title": "coo"
+      }
+    ]
+  }
+  ```
