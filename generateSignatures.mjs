@@ -14,7 +14,7 @@ console.log(`JSON file path: ${jsonFilePath}`);
 
 // Read the contents of the employees JSON file
 const {data: employees} = JSON.parse(fs.readFileSync(jsonFilePath, 'utf8'));
-console.log('Loaded employees list');
+console.log('Loaded employees list', employees);
 
 
 // Get the path to the email signature template file
@@ -34,16 +34,30 @@ function replacePlaceholders(original, name, title) {
 
 // Loop through the JSON array and create a new email signature file for each employee
 employees.forEach((entry, index) => {
-  const { name, title } = entry;
+  const { name, title, customerCareTeam } = entry;
   console.log(`Creating email signature for ${name} (${title})`);
+
+  generateSignature(templateContent, name, title);
   
+  if (customerCareTeam) {
+    console.log(`Creating email signature for ${name} (${title}) - customer care team`);
+    
+    generateSignature(
+      templateContent,
+      name,
+      "customer care team",
+      customerCareTeam,
+    );
+  }
+});
+
+function generateSignature(template, name, title, customerCare = false) {
   // Replace placeholders in the template with the employee data
-  const newContent = replacePlaceholders(templateContent, name, title);
+  const newContent = replacePlaceholders(template, name, title);
   console.log('Replaced placeholders with employee data');
-  
-  
+
   // Create name for the new email signature file
-  const nameSlug = name.toLowerCase().split(' ').join('-');
+  const nameSlug = `${name.toLowerCase().split(' ').join('-')}${customerCare ? '-customer-care' : ''}`;
 
   // check the for the __dirname/emails/signatures directory - if it doesn't exist, create it
   const outDirPath = path.join(__dirname, '/emails/signatures');
@@ -57,4 +71,6 @@ employees.forEach((entry, index) => {
   // Write the new email signature file to the signatures directory
   fs.writeFileSync(newFilePath, newContent, 'utf8');
   console.log(`${name}'s email signature saved at: ${newFilePath}`);
-});
+
+  return {newFilePath, newContent};
+}

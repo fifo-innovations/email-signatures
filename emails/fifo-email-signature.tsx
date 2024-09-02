@@ -1,17 +1,8 @@
 import {
-	Body,
-	Column,
-	Container,
 	Font,
-	Head,
-	Heading,
-	Html,
-	Img,
 	Link,
-	Preview,
 	Row,
 	Section,
-	Text,
 } from "@react-email/components";
 import * as React from "react";
 
@@ -19,10 +10,11 @@ interface SignatureProps {
   name: string;
   title: string;
   cell?: string;
+	customerCareTeam?: string;
 }
 
 export function FifoEmailSignature(props: SignatureProps) {
-  const { name, title, cell } = props;
+  const { name, title, cell, customerCareTeam } = props;
 
 	return (
 		<Section
@@ -44,8 +36,8 @@ export function FifoEmailSignature(props: SignatureProps) {
                 fontWeight: 600,
 					}}
 				>
-					{name}
-				</span>{" "}
+					{name} {" "}
+				</span>
 				| {title}
 			</Row>
 			<Row>
@@ -58,12 +50,10 @@ export function FifoEmailSignature(props: SignatureProps) {
           </>
         )}
 			</Row>
-			<Row>107 - 2999 Underhill Avenue, Burnaby BC Canada V5A 3C2 |</Row>
-			<Row>
-				<Link href="https://www.fifobottle.com?utm_source=email&utm_medium=email&utm_campaign=email_sig&utm_id=email_sig">
+			<Row>107 - 2999 Underhill Avenue, Burnaby BC Canada V5A 3C2 | <Link href="https://www.fifobottle.com?utm_source=email&utm_medium=email&utm_campaign=email_sig&utm_id=email_sig">
 					www.fifoinnovations.com
-				</Link>
-			</Row>
+				</Link></Row>
+		
 			<Row style={{ padding: 6 }}>
 				{icons.map((icon, i) => (
 					<Icon
@@ -132,6 +122,9 @@ const Icon = (props: IconProps) => {
 				alt={alt}
 				style={{
 					height: 22,
+					maxHeight: 22,
+					width: 22,
+					maxWidth: 22,
 					marginLeft: index !== 0 ? 6 : 0,
 					marginTop: 1,
 					paddingTop: 0,
