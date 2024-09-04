@@ -5,3 +5,4 @@ employees.json
 emails/signatures
 out/signatures
 out
+out/*
